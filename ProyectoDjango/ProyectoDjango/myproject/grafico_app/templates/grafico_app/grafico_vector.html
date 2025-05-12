@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vector 3D con Extrapolaciones</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        #grafico { 
+            width: 900px; 
+            height: 700px; 
+            margin: 20px auto;
+            border: 1px solid #ddd;
+        }
+        h1 { text-align: center; color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Vector 3D con Proyecciones Extrapoladas</h1>
+    <div id="grafico"></div>
+
+    <script>
+        // Definir el vector [x, y, z] (puedes cambiarlo)
+        const vector = [3, 4, 5];
+
+        // --- 1. Vector principal (línea roja) ---
+        const vectorPrincipal = {
+            type: 'scatter3d',
+            mode: 'lines+markers',
+            x: [0, vector[0]],
+            y: [0, vector[1]],
+            z: [0, vector[2]],
+            line: { color: 'red', width: 8 },
+            marker: { color: 'black', size: 6 },
+            name: 'Vector Principal'
+        };
+
+        // --- 2. Proyecciones extrapoladas (líneas punteadas) ---
+        const extrapolaciones = [
+            // Proyección en XY (desde el vector hasta el plano XY)
+            {
+                x: [vector[0], vector[0]],
+                y: [vector[1], vector[1]],
+                z: [vector[2], 0],
+                line: { color: 'blue', width: 4, dash: 'dot' },
+                type: 'scatter3d',
+                mode: 'lines',
+                name: 'Proyección XY'
+            },
+            // Proyección en XZ (desde el vector hasta el plano XZ)
+            {
+                x: [vector[0], vector[0]],
+                y: [vector[1], 0],
+                z: [vector[2], vector[2]],
+                line: { color: 'green', width: 4, dash: 'dot' },
+                type: 'scatter3d',
+                mode: 'lines',
+                name: 'Proyección XZ'
+            },
+            // Proyección en YZ (desde el vector hasta el plano YZ)
+            {
+                x: [vector[0], 0],
+                y: [vector[1], vector[1]],
+                z: [vector[2], vector[2]],
+                line: { color: 'purple', width: 4, dash: 'dot' },
+                type: 'scatter3d',
+                mode: 'lines',
+                name: 'Proyección YZ'
+            }
+        ];
+
+        // --- 3. Componentes del vector (líneas verdes en los ejes) ---
+        const componentes = [
+            // Componente en X (eje X)
+            {
+                x: [0, vector[0]],
+                y: [0, 0],
+                z: [0, 0],
+                line: { color: 'orange', width: 3 },
+                type: 'scatter3d',
+                mode: 'lines',
+                name: 'Componente X'
+            },
+            // Componente en Y (eje Y)
+            {
+                x: [0, 0],
+                y: [0, vector[1]],
+                z: [0, 0],
+                line: { color: 'cyan', width: 3 },
+                type: 'scatter3d',
+                mode: 'lines',
+                name: 'Componente Y'
+            },
+            // Componente en Z (eje Z)
+            {
+                x: [0, 0],
+                y: [0, 0],
+                z: [0, vector[2]],
+                line: { color: 'magenta', width: 3 },
+                type: 'scatter3d',
+                mode: 'lines',
+                name: 'Componente Z'
+            }
+        ];
+
+        // --- Layout del gráfico ---
+        const layout = {
+            title: 'Descomposición del Vector 3D',
+            scene: {
+                xaxis: { title: 'Eje X', backgroundcolor: 'rgba(0,0,0,0)' },
+                yaxis: { title: 'Eje Y', backgroundcolor: 'rgba(0,0,0,0)' },
+                zaxis: { title: 'Eje Z', backgroundcolor: 'rgba(0,0,0,0)' },
+                camera: { eye: { x: 1.5, y: 1.5, z: 0.8 } } // Ángulo de vista 3D
+            },
+            margin: { l: 0, r: 0, b: 0, t: 40 }
+        };
+
+        // Combinar todos los trazos y renderizar
+        Plotly.newPlot(
+            'grafico',
+            [vectorPrincipal, ...extrapolaciones, ...componentes],
+            layout
+        );
+    </script>
+</body>
+</html>

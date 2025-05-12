@@ -57,3 +57,6 @@ def vector_grafico(request):
     else:
         form = VectorForm()
     return render(request, 'grafico_app/graficoR3.html', {'form': form})
+
+def grafico_vector(request):
+    return render(request, 'grafico_app/grafico_vector.html')

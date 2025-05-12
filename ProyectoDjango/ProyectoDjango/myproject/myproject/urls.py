@@ -25,5 +25,6 @@ urlpatterns = [
     path('home/', views.home),
     path('vectores/', include('grafico_app.urls')),
     path('graficoR3/', include('grafico_app.urls')),
+    path('grafico/', include('grafico_app.urls')),
 
 ]
